@@ -1,6 +1,5 @@
-import java.time.LocalDate
+package com.datio
 
-import com.datio.Bar
 import org.apache.logging.log4j.LogManager;
 
 object HelloWorld extends App {
