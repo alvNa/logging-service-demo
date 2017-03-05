@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="http://logging.apache.org/log4j/2.0/config" status="WARN">
+    <Properties>
+        <Property name="filename">app</Property>
+        <Property name="fileLogDir">./target</Property>
+        <Property name="logPattern">%d %p [%t] [%X{APPLICATION_NAME}] [%X{UUID}] %c %m%n</Property>
+        <Property name="fileLogTriggerSize">1 MB</Property>
+        <Property name="fileLogRolloverMax">10</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="${logPattern}"/>
+        </Console>
+<!--
+        <Appender type="File" name="jsonFile" fileName="${fileLogDir}/app.json" >
+            <Layout type="JsonLayout"/>
+        </Appender>
+-->
+
+        <File name="jsonFile" fileName="${fileLogDir}/${filename}.json">
+            <JsonLayout complete="fase" locationInfo="true" compact="false" eventEol="true" />
+        </File>
+
+        <File name="file" fileName="${fileLogDir}/${filename}.log"  >
+            <PatternLayout pattern="${logPattern}"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.datio" level="DEBUG">
+            <AppenderRef ref="jsonFile"/>
+            <AppenderRef ref="file"/>
+        </Logger>
+        <Root level="trace">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+    </Loggers>
+</Configuration>
